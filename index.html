@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+	<style>
+		.container-fluid {
+  			padding-top:10%;
+		}
+		#board {
+  			position: relative;
+  			width:400px;
+  			height:400px;
+  			margin-left:auto;
+  			margin-right:auto;
+		}
+		#green-button {
+  			float:left;
+  			height:170px;
+  			width:170px;
+  			border-top-left-radius:100%;
+  			background-color: green;
+  			border: 15px solid black;
+		}
+		body {
+  			background-image: url("https://v0fsrg-db3pap001.files.1drv.com/y4mKboiqHIb4_6q77FtRN-AebVhZYjffA4gDFFs1HAG0Q82iW9lovV13LrzgTqWVnLL6RQGlBkGPBF5kEkZDYrjhOyDAA1n2Wl2ytwJLJ-76b3pbkzlsxkSUet4dtF3yzm_vgsFghrYc2LuZvVmqOyhrsdetZk76lYb1hSW1idrKI7cHfEeuJwE9LpbbNVNpNdkClS-pCdT9cw60Fps8t_HLw?width=400&height=300&cropmode=none");
+		}
+		#red-button {
+  			float:left;
+  			height:170px;
+  			width:170px;
+  			border-top-right-radius:100%;
+  			background-color: red;
+  			border: 15px solid black;
+		}
+		#yellow-button {
+  			float:left;
+  			height:170px;
+  			width:170px;
+  			border-bottom-left-radius:100%;
+  			background-color: yellow;
+  			border: 15px solid black;
+		}
+		#blue-button {
+  			float:left;
+  			height:170px;
+  			width:170px;
+  			border-bottom-right-radius:100%;
+  			background-color: blue;
+  			border: 15px solid black; 
+		}
+		#centre {
+  			position:absolute;
+  			top:90px;
+  			left:90px;
+  			background-color: silver;
+  			height:200px;
+  			width:200px;
+  			border-radius: 100%;
+  			border: 10px solid black;
+  			z-index: 2;
+  			text-align:center;
+  			font-family: 'Open Sans Condensed', sans-serif;
+  			font-size:13px;
+		}
+		#simon-text {
+  			color:black;
+  			font-size:40px;
+  			font-weight:bold;
+  			padding-top:11%;
+		}
+		#count {
+  			float:left;
+  			padding-top:12%;
+  			padding-bottom:10%;
+  			padding-left:10%;
+		}
+		#count-num {
+  			font-family: 'Orbitron';
+  			color:red;
+  			background-color:black;
+  			height: 20px;
+  			width:20px;
+  			border-radius: 15%;
+  			padding-left:10%;
+  			padding-right:20%;
+		}
+		#start {
+  			float:left;
+  			padding-top:9%;
+  			padding-left:18%;
+  			padding-right:20%;
+		}
+		#start-button {
+  			background:red;
+  			margin-left:auto;
+  			margin-right:auto;
+  			width:20px;
+  			height:20px;
+  			border-radius:50%;
+  			border: 3px solid black;
+		}
+		#strict {
+  			float:left;
+		}
+		#strict-light {
+  			background:black;
+  			margin-left:auto;
+  			margin-right:auto;
+  			width:10px;
+  			height:10px;
+  			border-radius:50%;
+  			border: 3px solid black;
+		}
+		#strict-divider {
+  			height: 2px;
+		}
+		#strict-button {
+  			background:yellow;
+  			margin-left:auto;
+  			margin-right:auto;
+  			width:20px;
+  			height:20px;
+  			border-radius:50%;
+  			border: 3px solid black;
+		}
+		#off-on {
+  			margin-left:auto;
+  			margin-right:auto;
+  			width:50%;
+  			font-size:12px;
+		}
+		#off {
+  			float:left;
+  			padding-right:7px;
+		}
+		#on {
+  			float:left;
+  			padding-left:7px;
+		}
+		#off-on-box {
+  			width:36px;
+  			height:18px;
+  			margin-left:auto;
+  			margin-right:auto;
+  			background: RGB(30,30,30);
+  			padding:1px;
+  			float:left;
+		}
+		#off-on-button {
+  			float:left;
+  			width:16px;
+  			height:18px;
+  			border-radius:4px;
+  			background:RGB(0,150,255);
+		}
+	</style>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+		<div class="container-fluid">
+  			<div id="board">
+    				<div id="green-button"></div>
+    				<div id="red-button"></div>
+    				<div style="clear:both"></div>
+    				<div id="yellow-button"></div>
+    				<div id="blue-button"></div>
+    				<div id="centre">
+      					<div id="simon-text">Simon<sup>&reg;</sup></div>
+      					<div id="count">
+        					<div id="count-num"></div>
+        					count
+      					</div>
+      					<div id="start">
+        					<div id="start-button"></div>
+        					start 
+      					</div>
+      					<div id="strict">
+        					<div id="strict-light"></div>
+						<div id="strict-divider"></div>
+						<div id="strict-button"></div>
+        					strict
+      					</div>
+      					<div style="clear:both"></div>
+      					<div id="off-on">
+        					<div id="off">OFF</div>
+        					<div id="off-on-box">
+          						<div id="off-on-button"></div>
+        					</div>
+        					<div id="on">ON</div>
+      					</div>
+    				</div>
+  			</div>
+		</div>
+		<script>
+			// Global variables
+			var on=false;
+			var started=false;
+			var strictMode=false;
+			var numberOfFlashes=0;
+			var countInterval;
+			var playersTurn=false;
+			var playerSequence = [];
+			var aiSequence = [];
+			var greenSound="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3";
+			var redSound="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3";
+			var blueSound="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3";
+			var yellowSound="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3";
+			var count=0;
+			var countTextHidden=false;
+
+			$(document).ready(function(){
+  				$("#off-on-box").click(function(){
+    					if (!on) {
+      						$("#count-num").text("- -");
+      						$("#off-on-button").css("float","right");
+      						on=true;
+    					} else {
+      						$("#count-num").text("");
+      						$("#off-on-button").css("float","left");
+      						on=false;
+      						resetAll();
+      						started=false;
+    					}
+  				});
+  				$("#start-button").click(function(){
+    					resetAll();
+    					numberOfFlashes=0;
+    					countTextHidden=false;
+    					if (on) {
+      						started=true;
+      						incrementCount();
+      						displayMessage("- -");
+    					}
+  				});
+  				$("#green-button").mousedown(function(){
+    					if (playersTurn) {
+      						playSound(greenSound);
+      						playerSequence.push(1);
+      						checkSequence();
+    					}
+  				});
+  				$("#red-button").mousedown(function(){
+    					if (playersTurn) {
+      						playSound(redSound);
+      						playerSequence.push(2);
+      						checkSequence();
+    					}
+  				});
+  				$("#blue-button").mousedown(function(){
+    					if (playersTurn) {
+      						playSound(blueSound);
+      						playerSequence.push(3);
+      						checkSequence();
+    					}
+  				});
+  				$("#yellow-button").mousedown(function(){
+    					if (playersTurn) {
+      						playSound(yellowSound);
+      						playerSequence.push(4);
+      						checkSequence();
+    					}
+  				});
+  				$("#strict-button").mousedown(function(){
+    					if (on && !strictMode) {
+      						$("#strict-light").css("background-color", "red");
+      						strictMode=true;
+    					} else if (on && strictMode) {
+      						$("#strict-light").css("background-color", "black");
+      						strictMode=false;
+    					} 
+  				});
+  
+			});
+
+			function playSound(url) {
+    				var a=new Audio(url);
+    				a.play();
+    				if (url==greenSound) {
+      					$("#green-button").css("background-color", "blue");
+      					setTimeout(function() {
+        					$("#green-button").css("background-color", "green");
+      					}, 100);
+    				} else if (url==redSound) {
+      					$("#red-button").css("background-color", "blue");
+      					setTimeout(function() {
+        					$("#red-button").css("background-color", "red");
+      					}, 100);
+    				} else if (url==blueSound) {
+      					$("#blue-button").css("background-color", "orange");
+      					setTimeout(function() {
+        					$("#blue-button").css("background-color", "blue");
+      					}, 100);
+    				} else {
+      					$("#yellow-button").css("background-color", "purple");
+      					setTimeout(function() {
+        					$("#yellow-button").css("background-color", "yellow");
+      					}, 100);
+    				}
+			}
+			function newSound(count) {
+  				if (aiSequence.length<count) {
+    					var soundNum=Math.floor(4*Math.random())+1;
+    					aiSequence.push(soundNum);
+  				}
+  				var x=-1;
+  				while (x<aiSequence.length) {
+    					(function(x){
+      						setTimeout(function() {
+        						switch (aiSequence[x]) {
+          							case 1: playSound(greenSound); break;
+          							case 2: playSound(redSound);  break;
+          							case 3: playSound(blueSound);  break;
+          							case 4: playSound(yellowSound);
+       			 				}
+      						}, 500*(x));
+    					})(x++)
+  				}
+  				playersTurn=true;
+			}
+
+			function checkSequence() {
+  				for (var x=0; x<playerSequence.length; x++) {
+    					if (playerSequence[x]!=aiSequence[x]) {
+      						displayMessage("!    !");
+      						playerSequence = [];
+    					} else if (x==aiSequence.length-1) {
+      						setTimeout(function() {
+        						incrementCount();
+        						playerSequence=[];
+        						if (count>=21) {
+          							displayMessage("* *");
+          							resetAll();
+        						} else {
+          							newSound(count); 
+        						}
+      						}, 1000);
+    					}
+  				}
+			}
+
+			function incrementCount() {
+  				count++;
+  				if (count<10) {
+    					count="0"+count;
+  				}
+  				$("#count-num").text(count);
+			}
+
+			function displayMessage(message) {
+  				$("#count-num").text(message);
+  				numberOfFlashes=0;
+  				countTextHidden=false;
+  				clearInterval(countInterval);
+  				countInterval = setInterval(function() {
+    					if (countTextHidden) {
+      						$("#count-num").text(message);
+      						numberOfFlashes++;
+      						countTextHidden=false;
+    					} else {
+      						$("#count-num").text("");
+      						countTextHidden=true;
+    					}
+    					if (numberOfFlashes>=3) {
+      						clearInterval(countInterval);
+      						if (message!="* *"){
+        						if (strictMode) {
+          							aiSequence = [];
+          							count=0;
+          							incrementCount();
+          							playersTurn=true;
+          							newSound(count);
+        						} else {
+          							count--;
+          							incrementCount();
+         						 	playersTurn=true;
+          							newSound(count);
+        						}
+      						}
+    					}
+  				}, 500);
+			}
+
+			function resetAll() {
+  				numberOfFlashes=0;
+  				playersTurn=false;
+  				playerSequence = [];
+  				aiSequence = [];
+  				count=0;
+			}
+		</script>
+	</body>
+</html>
